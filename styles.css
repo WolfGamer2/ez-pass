@@ -3,74 +3,67 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9; /* Light gray background */
+    background-color: #f9f9f9; 
 }
 
 h1 {
     text-align: center;
-    color: #333; /* Dark gray */
+    color: #333;
     margin-top: 20px;
 }
 
-/* Container for inputs and buttons */
 .controls {
     display: flex;
     justify-content: center;
     margin: 20px 0;
 }
 
-/* Map Styles */
 #map {
-    height: 500px; /* Set a fixed height for the map */
-    border: 2px solid #007bff; /* Blue border for emphasis */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    height: 500px;
+    border: 2px solid #007bff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
 }
 
-/* Filter and Search Styles */
 label {
     font-weight: bold;
-    color: #333; /* Dark gray */
+    color: #333; 
     margin-right: 10px;
 }
 
 select, input[type="text"], button {
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #ccc; /* Light gray border */
-    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
     font-size: 16px;
 }
 
-/* Search Input */
 input[type="text"] {
-    width: 250px; /* Set width for search input */
+    width: 250px; 
 }
 
-/* Button Styles */
 button {
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #007bff; 
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Animation for buttons */
-    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s, transform 0.2s; 
+    font-weight: bold; 
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #0056b3; 
+    transform: scale(1.05); 
 }
 
-/* Chart Styles */
 canvas {
     margin-top: 20px;
-    border: 2px solid #007bff; /* Blue border around the chart */
-    border-radius: 5px; /* Rounded corners */
+    border: 2px solid #007bff; 
+    border-radius: 5px;
 }
 
-/* Popup Styles */
 .leaflet-popup {
     font-size: 14px; /* Slightly larger font for popups */
     color: #333; /* Dark gray text */
