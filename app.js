@@ -1,41 +1,38 @@
-// Initialize the map and set its view to a default location
-const map = L.map('map').setView([40.7128, -74.0060], 10); // Default to NYC coordinates
+// Initialize the map and set its view to a default location (NYC coordinates)
+const map = L.map('map').setView([40.7128, -74.0060], 10);
 
 // Add a tile layer to the map (OpenStreetMap)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Placeholder E-ZPass retailer data (replace this with actual dataset fetching later)
-const retailers = [
-    {
-        name: "Retailer 1",
-        lat: 40.7128,
-        lon: -74.0060,
-        address: "123 Main St, New York, NY"
-    },
-    {
-        name: "Retailer 2",
-        lat: 40.7306,
-        lon: -73.9352,
-        address: "456 Elm St, Brooklyn, NY"
-    }
-];
+// Fetch E-ZPass Retailers Locations Data
+fetch('https://data.ny.gov/resource/y59h-w6v4.json')
+    .then(response => response.json())
+    .then(data => {
+        // Add retailers to the map after data is fetched
+        addRetailersToMap(data);
+    })
+    .catch(error => console.error('Error fetching retailer data:', error));
 
-// Function to add markers for retailers
+// Function to add markers for each retailer on the map
 function addRetailersToMap(retailers) {
     retailers.forEach(retailer => {
-        const marker = L.marker([retailer.lat, retailer.lon]).addTo(map);
-        marker.bindPopup(`<b>${retailer.name}</b><br>${retailer.address}`);
+        // Check if latitude and longitude are available
+        if (retailer.location_1) {
+            const lat = retailer.location_1.latitude;
+            const lon = retailer.location_1.longitude;
+            const marker = L.marker([lat, lon]).addTo(map);
+
+            // Add a popup to show retailer information
+            marker.bindPopup(`<b>${retailer.retailer_name}</b><br>${retailer.location_1.human_address}`);
+        }
     });
 }
 
-// Add retailers to map
-addRetailersToMap(retailers);
-
-// Search button functionality (this will be updated to actually query based on input)
+// Search button functionality (to add in the future)
 document.getElementById('search-btn').addEventListener('click', () => {
     const searchInput = document.getElementById('search-input').value;
     alert(`Searching for retailers near: ${searchInput}`);
-    // In the future, you can add geocoding to find retailers near the search location
+    // In future steps, you can integrate geocoding to search and update the map based on user input
 });
