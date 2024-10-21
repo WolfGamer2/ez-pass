@@ -6,9 +6,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Store all retailers for filtering and searching
+// Store all retailers for searching
 let allRetailers = [];
-let retailerTypes = new Set(); // To store unique retailer types
 
 // Parse the CSV using PapaParse
 Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_retailers.csv', {
@@ -17,17 +16,6 @@ Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_ret
     complete: function(results) {
         console.log('Parsed Retailers:', results.data); // Check parsed data
         allRetailers = results.data;
-
-        // Extract unique retailer types
-        allRetailers.forEach(retailer => {
-            if (retailer.TYPE) {
-                retailerTypes.add(retailer.TYPE);
-            }
-        });
-
-        // Populate the retailer type dropdown
-        populateRetailerTypeDropdown();
-        
         addRetailersToMap(allRetailers);
         renderChart(allRetailers);
     },
@@ -35,22 +23,6 @@ Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_ret
         console.error('Error parsing CSV:', error);
     }
 });
-
-// Function to populate the retailer type dropdown
-function populateRetailerTypeDropdown() {
-    const retailerTypeSelect = document.getElementById('retailer-type');
-    
-    // Clear existing options
-    retailerTypeSelect.innerHTML = '<option value="all">All</option>';
-    
-    // Add unique retailer types to dropdown
-    retailerTypes.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type;
-        option.textContent = type.replace('_', ' ').toUpperCase(); // Format type for display
-        retailerTypeSelect.appendChild(option);
-    });
-}
 
 // Function to add markers for each retailer on the map
 function addRetailersToMap(retailers) {
@@ -108,15 +80,6 @@ document.getElementById('search-btn').addEventListener('click', () => {
     const searchQuery = document.getElementById('search-input').value.toLowerCase();
     const filteredRetailers = allRetailers.filter(retailer =>
         retailer.COMPANY.toLowerCase().includes(searchQuery)
-    );
-    addRetailersToMap(filteredRetailers);
-});
-
-// Filter by retailer type
-document.getElementById('retailer-type').addEventListener('change', function() {
-    const selectedType = this.value;
-    const filteredRetailers = allRetailers.filter(retailer =>
-        selectedType === 'all' || retailer.TYPE === selectedType
     );
     addRetailersToMap(filteredRetailers);
 });
