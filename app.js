@@ -1,15 +1,12 @@
-// Initialize the map and set its view to New York City's coordinates
 const map = L.map('map').setView([40.7128, -74.0060], 10);
 
-// Add a tile layer to the map (OpenStreetMap)
+// OpenStreetMap)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Store all retailers for searching
 let allRetailers = [];
 
-// Parse the CSV using PapaParse
 Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_retailers.csv', {
     download: true,
     header: true,
@@ -24,14 +21,11 @@ Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_ret
     }
 });
 
-// Function to get driving directions
 function getDirections(lat, lon) {
     window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`, '_blank');
 }
 
-// Function to add markers for each retailer on the map
 function addRetailersToMap(retailers) {
-    // Clear existing markers if any
     map.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
             map.removeLayer(layer);
@@ -46,7 +40,7 @@ function addRetailersToMap(retailers) {
                 const lon = parseFloat(coordinates[1]);
                 const lat = parseFloat(coordinates[2]);
 
-                // Add marker to the map
+                // markers for places
                 const marker = L.marker([lat, lon]).addTo(map);
                 console.log(`Marker added for ${retailer.COMPANY} at (${lat}, ${lon})`); // Log marker addition
 
@@ -62,7 +56,6 @@ function addRetailersToMap(retailers) {
         }
     });
 
-    // Fit the map to the bounds of the markers
     if (retailers.length > 0) {
         const bounds = L.latLngBounds();
         retailers.forEach(retailer => {
@@ -76,11 +69,10 @@ function addRetailersToMap(retailers) {
                 }
             }
         });
-        map.fitBounds(bounds); // Fit map to the bounds of the markers
+        map.fitBounds(bounds); 
     }
 }
 
-// Search button functionality
 document.getElementById('search-btn').addEventListener('click', () => {
     const searchQuery = document.getElementById('search-input').value.toLowerCase();
     const filteredRetailers = allRetailers.filter(retailer =>
@@ -89,7 +81,6 @@ document.getElementById('search-btn').addEventListener('click', () => {
     addRetailersToMap(filteredRetailers);
 });
 
-// Function to render data visualization
 function renderChart(retailers) {
     const ctx = document.getElementById('myChart').getContext('2d');
     const retailerCounts = {};
