@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let allRetailers = [];
 
 // Parse the CSV using PapaParse
-Papa.parse('https://raw.githubusercontent.com/yourusername/your-repo/main/ezpass_retailers.csv', {
+Papa.parse('https://github.com/WolfGamer2/ez-pass/blob/main/ezpass_retailers.csv', {
     download: true,
     header: true, // First row is the header
     complete: function(results) {
