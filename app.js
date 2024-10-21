@@ -40,8 +40,8 @@ function addRetailersToMap(retailers) {
                 const lon = parseFloat(coordinates[1]);
                 const lat = parseFloat(coordinates[2]);
 
-                const iconUrl = retailer.TYPE === 'gas_station' ? 'path/to/gas_icon.png' : 'path/to/convenience_icon.png';
-                const marker = L.marker([lat, lon], { icon: L.icon({ iconUrl }) }).addTo(map);
+                // Use the default Leaflet marker
+                const marker = L.marker([lat, lon]).addTo(map); // No custom icon
 
                 marker.bindPopup(`
                     <b>${retailer.COMPANY}</b><br>${retailer.STREET_1}, ${retailer.CITY}, ${retailer.STATE} ${retailer.ZIP_CODE}
