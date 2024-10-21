@@ -1,66 +1,48 @@
-/* General styles */
-body, html {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Helvetica Neue', sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header styling */
-header {
-    background-color: #0044cc;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color */
 }
 
 h1 {
-    margin: 0;
-    font-size: 1.8rem;
+    text-align: center;
+    color: #343a40; /* Dark gray */
 }
 
-/* Search bar styling */
-.search-bar {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#map {
+    border: 2px solid #343a40; /* Dark gray border around the map */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Space below the map */
 }
 
-.search-bar input {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: none;
-    width: 300px;
-    margin-right: 0.5rem;
+label {
+    font-weight: bold;
+    color: #495057; /* Medium gray */
 }
 
-.search-bar button {
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    background-color: #ffcc00;
-    border: none;
-    border-radius: 5px;
+select, input[type="text"], button {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px;
+}
+
+input[type="text"] {
+    width: 200px; /* Fixed width for search input */
+}
+
+button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
     cursor: pointer;
 }
 
-.search-bar button:hover {
-    background-color: #ffdd33;
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
 }
 
-/* Map container styling */
-#map {
-    flex-grow: 1;
-    height: calc(100vh - 120px); /* Adjust height to allow space for the header */
-}
-
-footer {
-    background-color: #0044cc;
-    color: white;
-    text-align: center;
-    padding: 0.5rem;
-    font-size: 0.8rem;
+canvas {
+    border: 1px solid #343a40; /* Dark gray border around the chart */
+    border-radius: 4px;
 }
