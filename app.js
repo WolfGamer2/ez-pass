@@ -24,6 +24,40 @@ Papa.parse('https://raw.githubusercontent.com/WolfGamer2/ez-pass/main/ezpass_ret
     }
 });
 
+// Function to get driving directions
+function getDirections(lat, lon) {
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`, '_blank');
+}
+
+// Function to add markers for each retailer on the map
+function addRetailersToMap(retailers) {
+    // Clear existing markers if any
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    retailers.forEach(retailer => {
+        const georeference = retailer.Georeference;
+        if (georeference) {
+            const coordinates = georeference.match(/POINT \(([-\d.]+) ([-\d.]+)\)/);
+            if (coordinates) {
+                const lon = parseFloat(coordinates[1]);
+                const lat = parseFloat(coordinates[2]);
+
+                const marker = L.marker([lat, lon]).addTo(map);
+
+                marker.bindPopup(`
+                    <b>${retailer.COMPANY}</b><br>${retailer.STREET_1}, ${retailer.CITY}, ${retailer.STATE} ${retailer.ZIP_CODE}
+                    <button onclick="getDirections(${lat}, ${lon})">Get Directions</button>
+                `);
+            }
+        }
+    });
+}
+
+
 // Function to add markers for each retailer on the map
 function addRetailersToMap(retailers) {
     // Clear existing markers if any
